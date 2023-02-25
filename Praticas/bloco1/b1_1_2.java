@@ -1,8 +1,9 @@
+package Praticas.bloco1;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Calculadora {
+public class b1_1_2 {
     public static void main(String[] args) {
         double firstNumber, secondNumber, result;
         String operator, line;

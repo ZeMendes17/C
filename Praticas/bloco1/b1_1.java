@@ -1,7 +1,8 @@
+package Praticas.bloco1;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Calculadora {
+public class b1_1 {
     public static void main(String[] args) {
         double firstNumber, secondNumber, result;
         String operator;
