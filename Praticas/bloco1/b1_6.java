@@ -24,6 +24,8 @@ public class b1_6{
             System.out.print("File to translate: ");
             input = sc.nextLine();
             file = new File(input);
+            if(input.isEmpty())
+                break;
             words = getPhrase(file);
             if(words != null){
                 for (String s : words) {
@@ -31,12 +33,14 @@ public class b1_6{
                         translation.append(wordsMap.get(s));
                     else
                         translation.append(s);
-                    translation.append(" ");
+                    if(!s.equals("\n"))
+                        translation.append(" ");
                 }
 
                 System.out.println(translation.toString());
+                translation = new StringBuilder();
             }
-        } while (!input.isEmpty());
+        } while (true);
         sc.close();
     }
 
