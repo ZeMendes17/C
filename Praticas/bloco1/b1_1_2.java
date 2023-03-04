@@ -93,7 +93,7 @@ public class b1_1_2 {
         sc.close();
     }
 
-    private static Double calculate(double firstNumber, double secondNumber, String operator){
+    public static Double calculate(double firstNumber, double secondNumber, String operator){
         double result;
 
         switch(operator){
