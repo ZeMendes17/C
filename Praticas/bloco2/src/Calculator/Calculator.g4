@@ -5,7 +5,9 @@ program: stat* EOF;
 stat: expr? NEWLINE;
 
 expr:
-        expr op=('*' | '/' | '%') expr  #ExprMultDivMod
+        '-' expr                        #ExprMinus
+    |   '+' expr                        #ExprPlus
+    |   expr op=('*' | '/' | '%') expr  #ExprMultDivMod
     |   expr op=('+' | '-') expr        #ExprSumDiv
     |   Integer                         #ExprInteger
     |   '(' expr ')'                    #ExprParent
