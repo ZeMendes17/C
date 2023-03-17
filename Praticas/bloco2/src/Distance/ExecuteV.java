@@ -10,7 +10,7 @@ public class ExecuteV extends DistanceBaseVisitor<Object> {
    @Override public Object visitStatExpr(DistanceParser.StatExprContext ctx) {
       Double res = (Double)visit(ctx.expr());
       if(res != null)
-         System.out.println(res);
+         System.out.println("Result (V): " + res);
       return res;
    }
 

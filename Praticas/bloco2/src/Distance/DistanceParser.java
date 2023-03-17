@@ -155,6 +155,7 @@ public class DistanceParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class StatContext extends ParserRuleContext {
+		public Double res;
 		public StatContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -163,10 +164,12 @@ public class DistanceParser extends Parser {
 		public StatContext() { }
 		public void copyFrom(StatContext ctx) {
 			super.copyFrom(ctx);
+			this.res = ctx.res;
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StatExprContext extends StatContext {
+		public ExprContext expr;
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
@@ -194,7 +197,11 @@ public class DistanceParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(18);
-			expr(0);
+			((StatExprContext)_localctx).expr = expr(0);
+
+			  if(((StatExprContext)_localctx).expr.res != null)
+			    System.out.println("Result (A): " + ((StatExprContext)_localctx).expr.res);
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -210,6 +217,7 @@ public class DistanceParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprContext extends ParserRuleContext {
+		public Double res = null;
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -218,11 +226,15 @@ public class DistanceParser extends Parser {
 		public ExprContext() { }
 		public void copyFrom(ExprContext ctx) {
 			super.copyFrom(ctx);
+			this.res = ctx.res;
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprAddSubContext extends ExprContext {
+		public ExprContext e1;
 		public Token op;
+		public ExprContext e2;
+		public ExprContext expr;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -246,6 +258,7 @@ public class DistanceParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprParentsContext extends ExprContext {
+		public ExprContext expr;
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
@@ -266,6 +279,7 @@ public class DistanceParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprDistanceContext extends ExprContext {
+		public DistanceContext distance;
 		public DistanceContext distance() {
 			return getRuleContext(DistanceContext.class,0);
 		}
@@ -286,6 +300,7 @@ public class DistanceParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprNumberContext extends ExprContext {
+		public Token Number;
 		public TerminalNode Number() { return getToken(DistanceParser.Number, 0); }
 		public ExprNumberContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
@@ -304,7 +319,10 @@ public class DistanceParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprMultDivContext extends ExprContext {
+		public ExprContext e1;
 		public Token op;
+		public ExprContext e2;
+		public ExprContext expr;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -343,7 +361,7 @@ public class DistanceParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(27);
+			setState(32);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__4:
@@ -352,12 +370,15 @@ public class DistanceParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(21);
-				match(T__4);
 				setState(22);
-				expr(0);
+				match(T__4);
 				setState(23);
+				((ExprParentsContext)_localctx).expr = expr(0);
+				setState(24);
 				match(T__5);
+
+				        ((ExprParentsContext)_localctx).res =  ((ExprParentsContext)_localctx).expr.res;
+				      
 				}
 				break;
 			case T__6:
@@ -365,8 +386,11 @@ public class DistanceParser extends Parser {
 				_localctx = new ExprDistanceContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(25);
-				distance();
+				setState(27);
+				((ExprDistanceContext)_localctx).distance = distance();
+
+				        ((ExprDistanceContext)_localctx).res =  ((ExprDistanceContext)_localctx).distance.res;
+				      
 				}
 				break;
 			case Number:
@@ -374,15 +398,18 @@ public class DistanceParser extends Parser {
 				_localctx = new ExprNumberContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(26);
-				match(Number);
+				setState(30);
+				((ExprNumberContext)_localctx).Number = match(Number);
+
+				        ((ExprNumberContext)_localctx).res =  Double.parseDouble(((ExprNumberContext)_localctx).Number().getText());
+				      
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(37);
+			setState(46);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -390,16 +417,17 @@ public class DistanceParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(35);
+					setState(44);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExprMultDivContext(new ExprContext(_parentctx, _parentState));
+						((ExprMultDivContext)_localctx).e1 = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(29);
+						setState(34);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(30);
+						setState(35);
 						((ExprMultDivContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__0 || _la==T__1) ) {
@@ -410,17 +438,37 @@ public class DistanceParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(31);
-						expr(6);
+						setState(36);
+						((ExprMultDivContext)_localctx).e2 = ((ExprMultDivContext)_localctx).expr = expr(6);
+
+						                    Double res = null;
+						                    Double e1 = ((ExprMultDivContext)_localctx).e1.res;
+						                    Double e2 = ((ExprMultDivContext)_localctx).e2.res;
+						                    if(e1 != null && e2 != null) {
+						                      switch(((ExprMultDivContext)_localctx).op.getText()){
+						                        case "*":
+						                          res = e1 * e2;
+						                          break;
+						                        case "/":
+						                          if(e2 == 0)
+						                            System.err.println("ERROR: Divide by Zero");
+						                          else
+						                            res = e1 / e2;
+						                          break;
+						                      }
+						                    }
+						                    ((ExprMultDivContext)_localctx).res =  res;
+						                  
 						}
 						break;
 					case 2:
 						{
 						_localctx = new ExprAddSubContext(new ExprContext(_parentctx, _parentState));
+						((ExprAddSubContext)_localctx).e1 = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(32);
+						setState(39);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(33);
+						setState(40);
 						((ExprAddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__2 || _la==T__3) ) {
@@ -431,14 +479,30 @@ public class DistanceParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(34);
-						expr(5);
+						setState(41);
+						((ExprAddSubContext)_localctx).e2 = ((ExprAddSubContext)_localctx).expr = expr(5);
+
+						                  Double res = null;
+						                  Double e1 = ((ExprAddSubContext)_localctx).e1.res;
+						                  Double e2 = ((ExprAddSubContext)_localctx).e2.res;
+						                  if(e1 != null && e2 != null) {
+						                    switch(((ExprAddSubContext)_localctx).op.getText()){
+						                      case "+":
+						                        res = e1 + e2;
+						                        break;
+						                      case "-":
+						                        res = e1 - e2;
+						                        break;
+						                    }
+						                  }
+						                  ((ExprAddSubContext)_localctx).res =  res;
+						                
 						}
 						break;
 					}
 					} 
 				}
-				setState(39);
+				setState(48);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -457,6 +521,9 @@ public class DistanceParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class DistanceContext extends ParserRuleContext {
+		public Double res;
+		public PointContext p1;
+		public PointContext p2;
 		public List<PointContext> point() {
 			return getRuleContexts(PointContext.class);
 		}
@@ -488,12 +555,21 @@ public class DistanceParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
+			setState(49);
 			match(T__6);
-			setState(41);
-			point();
-			setState(42);
-			point();
+			setState(50);
+			((DistanceContext)_localctx).p1 = point();
+			setState(51);
+			((DistanceContext)_localctx).p2 = point();
+
+			  Double p1x = ((DistanceContext)_localctx).p1.x;
+			  Double p2x = ((DistanceContext)_localctx).p2.x;
+			  Double p1y = ((DistanceContext)_localctx).p1.y;
+			  Double p2y = ((DistanceContext)_localctx).p2.y;
+			  if(p1x != null && p2x != null && p1y != null && p2y != null){
+			      ((DistanceContext)_localctx).res =  Math.sqrt(Math.pow(p1x - p2x, 2) + Math.pow(p1y - p2y, 2));
+			  }
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -509,6 +585,10 @@ public class DistanceParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class PointContext extends ParserRuleContext {
+		public Double x;
+		public Double y;
+		public ExprContext e1;
+		public ExprContext e2;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -540,16 +620,20 @@ public class DistanceParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
+			setState(54);
 			match(T__4);
-			setState(45);
-			expr(0);
-			setState(46);
+			setState(55);
+			((PointContext)_localctx).e1 = expr(0);
+			setState(56);
 			match(T__7);
-			setState(47);
-			expr(0);
-			setState(48);
+			setState(57);
+			((PointContext)_localctx).e2 = expr(0);
+			setState(58);
 			match(T__5);
+
+			  ((PointContext)_localctx).x =  ((PointContext)_localctx).e1.res;
+			  ((PointContext)_localctx).y =  ((PointContext)_localctx).e2.res;
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -581,38 +665,45 @@ public class DistanceParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\n3\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\n>\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
 		"\u0000\u0005\u0000\f\b\u0000\n\u0000\f\u0000\u000f\t\u0000\u0001\u0000"+
-		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002\u001c\b\u0002"+
+		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002"+
 		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0005\u0002$\b\u0002\n\u0002\f\u0002\'\t\u0002\u0001\u0003\u0001\u0003"+
-		"\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004"+
-		"\u0001\u0004\u0001\u0004\u0001\u0004\u0000\u0001\u0004\u0005\u0000\u0002"+
-		"\u0004\u0006\b\u0000\u0002\u0001\u0000\u0001\u0002\u0001\u0000\u0003\u0004"+
-		"2\u0000\r\u0001\u0000\u0000\u0000\u0002\u0012\u0001\u0000\u0000\u0000"+
-		"\u0004\u001b\u0001\u0000\u0000\u0000\u0006(\u0001\u0000\u0000\u0000\b"+
-		",\u0001\u0000\u0000\u0000\n\f\u0003\u0002\u0001\u0000\u000b\n\u0001\u0000"+
-		"\u0000\u0000\f\u000f\u0001\u0000\u0000\u0000\r\u000b\u0001\u0000\u0000"+
-		"\u0000\r\u000e\u0001\u0000\u0000\u0000\u000e\u0010\u0001\u0000\u0000\u0000"+
-		"\u000f\r\u0001\u0000\u0000\u0000\u0010\u0011\u0005\u0000\u0000\u0001\u0011"+
-		"\u0001\u0001\u0000\u0000\u0000\u0012\u0013\u0003\u0004\u0002\u0000\u0013"+
-		"\u0003\u0001\u0000\u0000\u0000\u0014\u0015\u0006\u0002\uffff\uffff\u0000"+
-		"\u0015\u0016\u0005\u0005\u0000\u0000\u0016\u0017\u0003\u0004\u0002\u0000"+
-		"\u0017\u0018\u0005\u0006\u0000\u0000\u0018\u001c\u0001\u0000\u0000\u0000"+
-		"\u0019\u001c\u0003\u0006\u0003\u0000\u001a\u001c\u0005\t\u0000\u0000\u001b"+
-		"\u0014\u0001\u0000\u0000\u0000\u001b\u0019\u0001\u0000\u0000\u0000\u001b"+
-		"\u001a\u0001\u0000\u0000\u0000\u001c%\u0001\u0000\u0000\u0000\u001d\u001e"+
-		"\n\u0005\u0000\u0000\u001e\u001f\u0007\u0000\u0000\u0000\u001f$\u0003"+
-		"\u0004\u0002\u0006 !\n\u0004\u0000\u0000!\"\u0007\u0001\u0000\u0000\""+
-		"$\u0003\u0004\u0002\u0005#\u001d\u0001\u0000\u0000\u0000# \u0001\u0000"+
-		"\u0000\u0000$\'\u0001\u0000\u0000\u0000%#\u0001\u0000\u0000\u0000%&\u0001"+
-		"\u0000\u0000\u0000&\u0005\u0001\u0000\u0000\u0000\'%\u0001\u0000\u0000"+
-		"\u0000()\u0005\u0007\u0000\u0000)*\u0003\b\u0004\u0000*+\u0003\b\u0004"+
-		"\u0000+\u0007\u0001\u0000\u0000\u0000,-\u0005\u0005\u0000\u0000-.\u0003"+
-		"\u0004\u0002\u0000./\u0005\b\u0000\u0000/0\u0003\u0004\u0002\u000001\u0005"+
-		"\u0006\u0000\u00001\t\u0001\u0000\u0000\u0000\u0004\r\u001b#%";
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002!\b\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002-\b\u0002\n\u0002\f\u0002"+
+		"0\t\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0001\u0004\u0000\u0001\u0004\u0005\u0000\u0002\u0004\u0006"+
+		"\b\u0000\u0002\u0001\u0000\u0001\u0002\u0001\u0000\u0003\u0004=\u0000"+
+		"\r\u0001\u0000\u0000\u0000\u0002\u0012\u0001\u0000\u0000\u0000\u0004 "+
+		"\u0001\u0000\u0000\u0000\u00061\u0001\u0000\u0000\u0000\b6\u0001\u0000"+
+		"\u0000\u0000\n\f\u0003\u0002\u0001\u0000\u000b\n\u0001\u0000\u0000\u0000"+
+		"\f\u000f\u0001\u0000\u0000\u0000\r\u000b\u0001\u0000\u0000\u0000\r\u000e"+
+		"\u0001\u0000\u0000\u0000\u000e\u0010\u0001\u0000\u0000\u0000\u000f\r\u0001"+
+		"\u0000\u0000\u0000\u0010\u0011\u0005\u0000\u0000\u0001\u0011\u0001\u0001"+
+		"\u0000\u0000\u0000\u0012\u0013\u0003\u0004\u0002\u0000\u0013\u0014\u0006"+
+		"\u0001\uffff\uffff\u0000\u0014\u0003\u0001\u0000\u0000\u0000\u0015\u0016"+
+		"\u0006\u0002\uffff\uffff\u0000\u0016\u0017\u0005\u0005\u0000\u0000\u0017"+
+		"\u0018\u0003\u0004\u0002\u0000\u0018\u0019\u0005\u0006\u0000\u0000\u0019"+
+		"\u001a\u0006\u0002\uffff\uffff\u0000\u001a!\u0001\u0000\u0000\u0000\u001b"+
+		"\u001c\u0003\u0006\u0003\u0000\u001c\u001d\u0006\u0002\uffff\uffff\u0000"+
+		"\u001d!\u0001\u0000\u0000\u0000\u001e\u001f\u0005\t\u0000\u0000\u001f"+
+		"!\u0006\u0002\uffff\uffff\u0000 \u0015\u0001\u0000\u0000\u0000 \u001b"+
+		"\u0001\u0000\u0000\u0000 \u001e\u0001\u0000\u0000\u0000!.\u0001\u0000"+
+		"\u0000\u0000\"#\n\u0005\u0000\u0000#$\u0007\u0000\u0000\u0000$%\u0003"+
+		"\u0004\u0002\u0006%&\u0006\u0002\uffff\uffff\u0000&-\u0001\u0000\u0000"+
+		"\u0000\'(\n\u0004\u0000\u0000()\u0007\u0001\u0000\u0000)*\u0003\u0004"+
+		"\u0002\u0005*+\u0006\u0002\uffff\uffff\u0000+-\u0001\u0000\u0000\u0000"+
+		",\"\u0001\u0000\u0000\u0000,\'\u0001\u0000\u0000\u0000-0\u0001\u0000\u0000"+
+		"\u0000.,\u0001\u0000\u0000\u0000./\u0001\u0000\u0000\u0000/\u0005\u0001"+
+		"\u0000\u0000\u00000.\u0001\u0000\u0000\u000012\u0005\u0007\u0000\u0000"+
+		"23\u0003\b\u0004\u000034\u0003\b\u0004\u000045\u0006\u0003\uffff\uffff"+
+		"\u00005\u0007\u0001\u0000\u0000\u000067\u0005\u0005\u0000\u000078\u0003"+
+		"\u0004\u0002\u000089\u0005\b\u0000\u00009:\u0003\u0004\u0002\u0000:;\u0005"+
+		"\u0006\u0000\u0000;<\u0006\u0004\uffff\uffff\u0000<\t\u0001\u0000\u0000"+
+		"\u0000\u0004\r ,.";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
