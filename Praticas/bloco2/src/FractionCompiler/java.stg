@@ -1,0 +1,48 @@
+module(name, stat) ::= <<
+import java.util.Scanner;
+
+public class <name> {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        <stats(stat)>
+        sc.close();
+    }
+}
+>>
+
+stats(stat) ::= <<
+<if(stat)><stat; separator="\n"><endif>
+>>
+
+print(stat, value) ::= <<
+<stats(stat)>
+System.out.println(<value>);
+>>
+
+decl(type,var,value) ::= "<type> <var><if(value)> = <value><endif>;"
+
+assign(stat, type, var, value) ::= <<
+<stats(stat)>
+<type> <var><if(value)> = <value><endif>;
+>>
+
+frac(var, numerator, denominator) ::= "Fraction <var><if(numerator && denominator)> = new Fraction(<numerator>, <denominator>)<endif>;"
+
+input(var1, var2, var3, name) ::= <<
+System.out.print("Insert Fraction for the variable '" + <name> + "': ");
+String <var1> = sc.nextLine();
+String[] <var2> = <var1>.split("/");
+Fraction <var3>;
+if(<var2>.length == 1) {
+    <var3> = new Fraction(Integer.parseInt(<var2>[0]), 1);
+} else {
+    <var3> = new Fraction(Integer.parseInt(<var2>[0]), Integer.parseInt(<var2>[1]));
+}
+>>
+
+reduce(stat, var, type, value) ::= <<
+<assign(stat, type, var, value)>
+<var>.reduce();
+>>
+
+binaryOperation(type,var,e1,op,e2) ::= "<decl(type,var,[e1,\".\",op,\"(\",e2, \")\"])>"
