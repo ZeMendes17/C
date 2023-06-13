@@ -1,3 +1,3 @@
-print "Bom dia!"
-t1: "Miguel"
-print t1
+print "Bom dia!" // escreve na consola a express˜ao ”Bom dia!”
+t1 : "Miguel" // define vari´avel t1 com o conte´udo ”Miguel”
+print t1 // escreve na consola o conte´udo da express˜ao t1

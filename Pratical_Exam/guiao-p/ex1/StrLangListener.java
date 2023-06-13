@@ -47,13 +47,87 @@ public interface StrLangListener extends ParseTreeListener {
 	 */
 	void exitAssignment(StrLangParser.AssignmentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link StrLangParser#expression}.
+	 * Enter a parse tree produced by the {@code TrimExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(StrLangParser.ExpressionContext ctx);
+	void enterTrimExpr(StrLangParser.TrimExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link StrLangParser#expression}.
+	 * Exit a parse tree produced by the {@code TrimExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(StrLangParser.ExpressionContext ctx);
+	void exitTrimExpr(StrLangParser.TrimExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StringExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringExpr(StrLangParser.StringExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StringExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringExpr(StrLangParser.StringExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IdExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdExpr(StrLangParser.IdExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IdExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdExpr(StrLangParser.IdExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InputExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterInputExpr(StrLangParser.InputExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InputExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitInputExpr(StrLangParser.InputExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ConcatRemvExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterConcatRemvExpr(StrLangParser.ConcatRemvExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ConcatRemvExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitConcatRemvExpr(StrLangParser.ConcatRemvExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenExpr(StrLangParser.ParenExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenExpr(StrLangParser.ParenExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReplaceExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterReplaceExpr(StrLangParser.ReplaceExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReplaceExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitReplaceExpr(StrLangParser.ReplaceExprContext ctx);
 }

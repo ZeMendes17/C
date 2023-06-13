@@ -34,9 +34,52 @@ public interface StrLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment(StrLangParser.AssignmentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link StrLangParser#expression}.
+	 * Visit a parse tree produced by the {@code TrimExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(StrLangParser.ExpressionContext ctx);
+	T visitTrimExpr(StrLangParser.TrimExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StringExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringExpr(StrLangParser.StringExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IdExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdExpr(StrLangParser.IdExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InputExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInputExpr(StrLangParser.InputExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConcatRemvExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConcatRemvExpr(StrLangParser.ConcatRemvExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParenExpr(StrLangParser.ParenExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReplaceExpr}
+	 * labeled alternative in {@link StrLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReplaceExpr(StrLangParser.ReplaceExprContext ctx);
 }

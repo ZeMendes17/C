@@ -12,9 +12,14 @@ display: 'print' expression;
 assignment: ID ':' expression;
 
 expression: 
-                STRING
-            |   ID
-            ;
+            'input' '(' STRING ')'                              #InputExpr
+        |   'trim' STRING                                       #TrimExpr
+        |   expression '/' expression '/' expression            #ReplaceExpr
+        |   expression op=('+'|'-') expression                  #ConcatRemvExpr
+        |   '(' expression ')'                                  #ParenExpr
+        |   STRING                                              #StringExpr
+        |   ID                                                  #IdExpr
+        ;
 
 
 ID: [a-zA-Z][a-zA-Z0-9]*;
