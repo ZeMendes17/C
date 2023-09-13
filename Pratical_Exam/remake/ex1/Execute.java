@@ -23,6 +23,17 @@ public class Execute extends StrLangBaseVisitor<String> {
       return res;
    }
 
+   @Override public String visitConditional(StrLangParser.ConditionalContext ctx) {
+      String res = visit(ctx.expression());
+
+      if (res.equals(""))
+         return null;
+
+      for (StrLangParser.CommandContext c : ctx.command())
+            visit(c);
+         return null;
+   }
+
    @Override public String visitStringExpr(StrLangParser.StringExprContext ctx) {
       String res = null;
       String s = ctx.STRING().getText();
